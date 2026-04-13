@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Clasificador de Noticias</title>
+</head>
+<body>
+    <h1>Clasificador de Noticias Deportivas ⚽</h1>
+    
+    <input type="text" id="cajaTitular" placeholder="Escribe un titular aquí..." size="50">
+    
+    <button onclick="enviarAPI()">Analizar Titular</button>
+    
+    <p id="textoResultado">La IA responderá aquí...</p>
+
+    <script>
+        async function enviarAPI() {
+            // 1. Obtenemos el texto que escribió el usuario
+            let titular = document.getElementById("cajaTitular").value;
+            
+            // 2. Mostramos un mensaje de carga
+            document.getElementById("textoResultado").innerText = "Consultando a la IA... 🧠";
+
+            // 3. Hacemos la petición a tu servidor FastAPI
+            let url = "http://127.0.0.1:8000/predecir?titular=" + titular;
+            let respuesta = await fetch(url);
+            let datos = await respuesta.json();
+
+            // 4. Escribimos el resultado final en la pantalla
+            document.getElementById("textoResultado").innerText = "Resultado: " + datos.resultado;
+        }
+    </script>
+    </body>
+</html>
